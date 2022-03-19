@@ -73,6 +73,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(title: const Text('Deresto')),
         body: _listWidget[_bottomNavIndex],
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: _bottomNavIndex,
