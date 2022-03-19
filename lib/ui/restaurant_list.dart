@@ -18,7 +18,9 @@ class RestaurantListPage extends StatelessWidget {
               var restaurant = state.result.restaurants[index];
               return ListTile(
                   leading: Image.network(
-                      'https://restaurant-api.dicoding.dev/images/small/${restaurant.pictureId}'),
+                    'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}',
+                    fit: BoxFit.cover,
+                  ),
                   title: Text(restaurant.name),
                   subtitle: Text(restaurant.city));
             });
