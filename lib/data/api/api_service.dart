@@ -10,7 +10,7 @@ class ApiService {
     if (response.statusCode == 200) {
       return RestaurantList.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load top headlines');
+      throw Exception('Failed to load restaurants list');
     }
   }
 
@@ -19,16 +19,18 @@ class ApiService {
     if (response.statusCode == 200) {
       return RestaurantList.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load top headlines');
+      throw Exception('Failed to load restaurant detail');
     }
   }
 
   Future<RestaurantList> searchRestaurant(String query) async {
-    final response = await http.get(Uri.parse(_baseUrl + "search?q=" + query));
+    String tempQuery = query.replaceAll(' ', '%20');
+    final response =
+        await http.get(Uri.parse(_baseUrl + "search?q=" + tempQuery));
     if (response.statusCode == 200) {
       return RestaurantList.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load top headlines');
+      throw Exception('Failed to load search result');
     }
   }
 
@@ -45,7 +47,7 @@ class ApiService {
     if (response.statusCode == 200) {
       return RestaurantList.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Failed to load top headlines');
+      throw Exception('Failed to add review');
     }
   }
 }
