@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import './ui/home_screen.dart';
+import './ui/restaurant_detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,6 +16,8 @@ class MyApp extends StatelessWidget {
       initialRoute: HomePage.routeName,
       routes: {
         HomePage.routeName: (context) => const HomePage(),
+        RestaurantDetailPage.routeName: (context) =>
+            const RestaurantDetailPage(),
       },
     );
   }

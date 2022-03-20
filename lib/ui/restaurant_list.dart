@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/restaurant_provider.dart';
+import './restaurant_detail.dart';
 
 class RestaurantListPage extends StatelessWidget {
+  static const routeName = '/restaurant_list';
   const RestaurantListPage({Key? key}) : super(key: key);
 
   @override
@@ -17,12 +19,15 @@ class RestaurantListPage extends StatelessWidget {
             itemBuilder: (context, index) {
               var restaurant = state.result.restaurants[index];
               return ListTile(
-                  leading: Image.network(
-                    'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}',
-                    fit: BoxFit.cover,
-                  ),
-                  title: Text(restaurant.name),
-                  subtitle: Text(restaurant.city));
+                leading: Image.network(
+                  'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}',
+                  fit: BoxFit.cover,
+                ),
+                title: Text(restaurant.name),
+                subtitle: Text(restaurant.city),
+                onTap: () => Navigator.pushNamed(
+                    context, RestaurantDetailPage.routeName),
+              );
             });
       } else if (state.state == ResultState.NoData) {
         return Center(child: Text(state.message));
