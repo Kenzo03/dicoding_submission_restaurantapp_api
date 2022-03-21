@@ -91,9 +91,95 @@ class RestaurantDetailPage extends StatelessWidget {
                         ),
                       ];
                     },
-                    body: const TabBarView(
+                    body: TabBarView(
                       children: [
-                        Icon(Icons.flight, size: 350),
+                        ListView(children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: state.result.restaurant.categories
+                                      .map((category) => Text(category.name))
+                                      .toList(),
+                                ),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  'Menu',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                SingleChildScrollView(
+                                  padding: const EdgeInsets.all(8),
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: state
+                                        .result.restaurant.menus.foods
+                                        .map((food) => Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Column(
+                                                      children: <Widget>[
+                                                        const Icon(Icons.shop),
+                                                        Text(food.name),
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ))
+                                        .toList(),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                const Text(
+                                  'Drinks',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                SingleChildScrollView(
+                                  padding: const EdgeInsets.all(8),
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    children: state
+                                        .result.restaurant.menus.drinks
+                                        .map((drink) => Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Column(
+                                                      children: <Widget>[
+                                                        const Icon(Icons.shop),
+                                                        Text(drink.name),
+                                                      ],
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            ))
+                                        .toList(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ]),
                         Icon(Icons.directions_transit, size: 350),
                       ],
                     ),
