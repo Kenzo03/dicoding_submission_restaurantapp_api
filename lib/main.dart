@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './ui/home_screen.dart';
+
+//UI
 import './ui/search_screen.dart';
 import './ui/restaurant_detail.dart';
+import './ui/restaurant_list.dart';
 
+//Provider
 import './provider/get_provider.dart';
-import './provider/get_detail_provider.dart';
 import './provider/search_provider.dart';
+
+//Api
 import './data/api/api_service.dart';
 
 void main() {
@@ -25,17 +29,15 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<SearchRestaurantProvider>(
           create: (_) => SearchRestaurantProvider(apiService: ApiService()),
-        ),
-        ChangeNotifierProvider<RestaurantDetailProvider>(
-          create: (_) => RestaurantDetailProvider(apiService: ApiService()),
-        ),
+        )
       ],
       child: MaterialApp(
         title: 'News App',
-        initialRoute: HomePage.routeName,
+        initialRoute: RestaurantListPage.routeName,
         routes: {
-          HomePage.routeName: (context) => const HomePage(),
+          // HomePage.routeName: (context) => const HomePage(),
           SearchScreen.routeName: (context) => const SearchScreen(),
+          RestaurantListPage.routeName: (context) => const RestaurantListPage(),
           RestaurantDetailPage.routeName: (context) =>
               const RestaurantDetailPage(),
         },
