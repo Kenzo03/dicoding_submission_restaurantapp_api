@@ -67,23 +67,23 @@ class RestaurantSearch {
 class RestaurantDetail {
   RestaurantDetail({
     required this.error,
-    required this.founded,
+    required this.message,
     required this.restaurant,
   });
 
   bool error;
-  int founded;
+  String message;
   RestaurantInfo restaurant;
 
   factory RestaurantDetail.fromJson(Map<String, dynamic> json) =>
       RestaurantDetail(
           error: json["error"],
-          founded: json["founded"],
+          message: json["message"],
           restaurant: RestaurantInfo.fromJson(json["restaurant"]));
 
   Map<String, dynamic> toJson() => {
         "error": error,
-        "founded": founded,
+        "message": message,
         "restaurants": restaurant.toJson(),
       };
 }

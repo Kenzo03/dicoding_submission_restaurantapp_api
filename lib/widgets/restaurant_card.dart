@@ -23,7 +23,8 @@ class CardRestaurant extends StatelessWidget {
           )),
       title: Text(restaurant.name),
       subtitle: Text(restaurant.city),
-      onTap: () => Navigator.pushNamed(context, RestaurantDetailPage.routeName),
+      onTap: () => Navigator.pushNamed(context, RestaurantDetailPage.routeName,
+          arguments: restaurant.id),
     ));
   }
 }

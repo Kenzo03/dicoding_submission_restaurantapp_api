@@ -1,87 +1,114 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class RestaurantDetailPage extends StatefulWidget {
+//API
+import '../data/api/api_service.dart';
+
+//Constant
+import '../common/constant.dart';
+
+//Provider
+import '../provider/get_detail_provider.dart';
+
+class RestaurantDetailPage extends StatelessWidget {
   static const routeName = '/restaurant_detail';
+  final String id;
 
-  const RestaurantDetailPage({Key? key}) : super(key: key);
+  const RestaurantDetailPage({Key? key, required this.id}) : super(key: key);
 
-  @override
-  State<RestaurantDetailPage> createState() => _RestaurantDetailPageState();
-}
-
-class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: DefaultTabController(
-          length: 2,
-          child: NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverAppBar(
-                  pinned: true,
-                  expandedHeight: 250.0,
-                  flexibleSpace: FlexibleSpaceBar(
-                    title: const Text('Goa', textScaleFactor: 1),
-                    background: Image.asset(
-                      'images/food.jpg',
-                      fit: BoxFit.fill,
-                    ),
-                    stretchModes: const [StretchMode.zoomBackground],
-                  ),
-                  //collapsedHeight: 100,
-                ),
-                SliverPersistentHeader(
-                  delegate: _SliverAppBarDelegate(
-                    TabBar(
-                      tabs: [
-                        Tab(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              Icon(
-                                Icons.info,
-                                color: Colors.black54,
-                              ),
-                              SizedBox(width: 8),
-                              Text('Restaurant Info',
-                                  style: TextStyle(color: Colors.black54)),
-                            ],
+    return ChangeNotifierProvider<RestaurantDetailProvider>(
+        create: (_) =>
+            RestaurantDetailProvider(apiService: ApiService(), id: id),
+        child: Scaffold(
+          body: SafeArea(
+            child: Consumer<RestaurantDetailProvider>(
+                builder: (context, state, _) {
+              if (state.state == ResultState.Loading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state.state == ResultState.HasData) {
+                return DefaultTabController(
+                  length: 2,
+                  child: NestedScrollView(
+                    headerSliverBuilder:
+                        (BuildContext context, bool innerBoxIsScrolled) {
+                      return <Widget>[
+                        SliverAppBar(
+                          pinned: true,
+                          expandedHeight: 250.0,
+                          flexibleSpace: FlexibleSpaceBar(
+                            title: Text(state.result.restaurant.name,
+                                textScaleFactor: 1),
+                            background: Image.network(
+                              Constant.baseUrl +
+                                  'images/medium/' +
+                                  state.result.restaurant.pictureId,
+                              fit: BoxFit.cover,
+                            ),
+                            stretchModes: const [StretchMode.zoomBackground],
                           ),
+                          //collapsedHeight: 100,
                         ),
-                        Tab(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              Icon(
-                                Icons.reviews,
-                                color: Colors.black54,
-                              ),
-                              SizedBox(width: 8),
-                              Text('Reviews',
-                                  style: TextStyle(color: Colors.black54)),
-                            ],
+                        SliverPersistentHeader(
+                          delegate: _SliverAppBarDelegate(
+                            TabBar(
+                              tabs: [
+                                Tab(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: const [
+                                      Icon(
+                                        Icons.info,
+                                        color: Colors.black54,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Text('Restaurant Info',
+                                          style:
+                                              TextStyle(color: Colors.black54)),
+                                    ],
+                                  ),
+                                ),
+                                Tab(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: const [
+                                      Icon(
+                                        Icons.reviews,
+                                        color: Colors.black54,
+                                      ),
+                                      SizedBox(width: 8),
+                                      Text('Reviews',
+                                          style:
+                                              TextStyle(color: Colors.black54)),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
+                          pinned: true,
                         ),
+                      ];
+                    },
+                    body: const TabBarView(
+                      children: [
+                        Icon(Icons.flight, size: 350),
+                        Icon(Icons.directions_transit, size: 350),
                       ],
                     ),
                   ),
-                  pinned: true,
-                ),
-              ];
-            },
-            body: const TabBarView(
-              children: [
-                Icon(Icons.flight, size: 350),
-                Icon(Icons.directions_transit, size: 350),
-              ],
-            ),
+                );
+              } else if (state.state == ResultState.NoData) {
+                return Center(child: Text(state.message));
+              } else if (state.state == ResultState.Error) {
+                return Center(child: Text(state.message));
+              } else {
+                return const Center(child: Text(''));
+              }
+            }),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
 
