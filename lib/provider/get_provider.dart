@@ -7,11 +7,11 @@ import '../data/api/api_service.dart';
 
 enum ResultState { Loading, NoData, HasData, Error }
 
-class NewsProvider extends ChangeNotifier {
+class RestaurantProvider extends ChangeNotifier {
   final ApiService apiService;
 
-  NewsProvider({required this.apiService}) {
-    _fetchAllArticle();
+  RestaurantProvider({required this.apiService}) {
+    _fetchAllRestaurant();
   }
 
   late RestaurantList _restaurantList;
@@ -24,7 +24,7 @@ class NewsProvider extends ChangeNotifier {
 
   ResultState get state => _state;
 
-  Future<dynamic> _fetchAllArticle() async {
+  Future<dynamic> _fetchAllRestaurant() async {
     try {
       _state = ResultState.Loading;
       notifyListeners();

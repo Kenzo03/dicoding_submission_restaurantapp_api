@@ -23,12 +23,12 @@ class ApiService {
     }
   }
 
-  Future<RestaurantList> searchRestaurant(String query) async {
+  Future<RestaurantSearch> searchRestaurant(String query) async {
     String tempQuery = query.replaceAll(' ', '%20');
     final response =
         await http.get(Uri.parse(_baseUrl + "search?q=" + tempQuery));
     if (response.statusCode == 200) {
-      return RestaurantList.fromJson(json.decode(response.body));
+      return RestaurantSearch.fromJson(json.decode(response.body));
     } else {
       throw Exception('Failed to load search result');
     }

@@ -21,7 +21,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
-                  pinned: false,
+                  pinned: true,
                   expandedHeight: 250.0,
                   flexibleSpace: FlexibleSpaceBar(
                     title: const Text('Goa', textScaleFactor: 1),
