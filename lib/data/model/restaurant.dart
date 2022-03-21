@@ -64,6 +64,30 @@ class RestaurantSearch {
       };
 }
 
+class RestaurantDetail {
+  RestaurantDetail({
+    required this.error,
+    required this.founded,
+    required this.restaurant,
+  });
+
+  bool error;
+  int founded;
+  Restaurant restaurant;
+
+  factory RestaurantDetail.fromJson(Map<String, dynamic> json) =>
+      RestaurantDetail(
+          error: json["error"],
+          founded: json["founded"],
+          restaurant: Restaurant.fromJson(json["restaurant"]));
+
+  Map<String, dynamic> toJson() => {
+        "error": error,
+        "founded": founded,
+        "restaurants": restaurant.toJson(),
+      };
+}
+
 class Restaurant {
   Restaurant({
     required this.id,
