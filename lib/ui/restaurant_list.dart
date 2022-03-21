@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/restaurant_provider.dart';
 import './restaurant_detail.dart';
+import '../widgets/restaurant_card.dart';
 
 class RestaurantListPage extends StatelessWidget {
   static const routeName = '/restaurant_list';
@@ -18,16 +19,7 @@ class RestaurantListPage extends StatelessWidget {
             itemCount: state.result.restaurants.length,
             itemBuilder: (context, index) {
               var restaurant = state.result.restaurants[index];
-              return ListTile(
-                leading: Image.network(
-                  'https://restaurant-api.dicoding.dev/images/medium/${restaurant.pictureId}',
-                  fit: BoxFit.cover,
-                ),
-                title: Text(restaurant.name),
-                subtitle: Text(restaurant.city),
-                onTap: () => Navigator.pushNamed(
-                    context, RestaurantDetailPage.routeName),
-              );
+              return CardRestaurant(restaurant: restaurant);
             });
       } else if (state.state == ResultState.NoData) {
         return Center(child: Text(state.message));
