@@ -13,6 +13,7 @@ import '../data/model/restaurant.dart';
 //Widgets
 import '../widgets/icon_label.dart';
 import '../widgets/card_image.dart';
+import '../widgets/blankslate.dart';
 
 //Provider
 import '../provider/get_detail_provider.dart';
@@ -233,9 +234,37 @@ class RestaurantDetailPage extends StatelessWidget {
                   ),
                 );
               } else if (state.state == ResultState.NoData) {
-                return Center(child: Text(state.message));
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Blankslate(),
+                    const SizedBox(height: 8),
+                    Text(state.message),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Back'))
+                  ],
+                );
               } else if (state.state == ResultState.Error) {
-                return Center(child: Text(state.message));
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Blankslate(),
+                    const SizedBox(height: 8),
+                    Text(state.message),
+                    const SizedBox(height: 8),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Back'))
+                  ],
+                );
               } else {
                 return const Center(child: Text(''));
               }

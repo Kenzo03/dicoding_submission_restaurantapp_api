@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+//Provider
 import '../provider/get_provider.dart';
+
+//Widgets
+import '../widgets/blankslate.dart';
 import '../widgets/restaurant_card.dart';
+
+//UI
 import './search_screen.dart';
 
 class RestaurantListPage extends StatelessWidget {
@@ -34,9 +41,25 @@ class RestaurantListPage extends StatelessWidget {
                 return CardRestaurant(restaurant: restaurant);
               });
         } else if (state.state == ResultState.NoData) {
-          return Center(child: Text(state.message));
+          return Column(
+            children: [
+              const Blankslate(),
+              const SizedBox(height: 8),
+              Text(state.message),
+              const SizedBox(height: 8),
+            ],
+          );
         } else if (state.state == ResultState.Error) {
-          return Center(child: Text(state.message));
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Blankslate(),
+              const SizedBox(height: 8),
+              Text(state.message),
+              const SizedBox(height: 8),
+            ],
+          );
         } else {
           return const Center(child: Text(''));
         }
