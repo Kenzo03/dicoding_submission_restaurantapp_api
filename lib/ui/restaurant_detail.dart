@@ -7,6 +7,13 @@ import '../data/api/api_service.dart';
 //Constant
 import '../common/constant.dart';
 
+//Model
+import '../data/model/restaurant.dart';
+
+//Widgets
+import '../widgets/icon_label.dart';
+import '../widgets/card_image.dart';
+
 //Provider
 import '../provider/get_detail_provider.dart';
 
@@ -28,6 +35,7 @@ class RestaurantDetailPage extends StatelessWidget {
               if (state.state == ResultState.Loading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state.state == ResultState.HasData) {
+                RestaurantInfo restoData = state.result.restaurant;
                 return DefaultTabController(
                   length: 2,
                   child: NestedScrollView(
@@ -38,12 +46,11 @@ class RestaurantDetailPage extends StatelessWidget {
                           pinned: true,
                           expandedHeight: 250.0,
                           flexibleSpace: FlexibleSpaceBar(
-                            title: Text(state.result.restaurant.name,
-                                textScaleFactor: 1),
+                            title: Text(restoData.name, textScaleFactor: 1),
                             background: Image.network(
                               Constant.baseUrl +
                                   'images/medium/' +
-                                  state.result.restaurant.pictureId,
+                                  restoData.pictureId,
                               fit: BoxFit.cover,
                             ),
                             stretchModes: const [StretchMode.zoomBackground],
@@ -93,52 +100,75 @@ class RestaurantDetailPage extends StatelessWidget {
                     },
                     body: TabBarView(
                       children: [
-                        ListView(children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8),
+                        SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                //City and Rating
                                 Row(
-                                  children: state.result.restaurant.categories
-                                      .map((category) => Text(category.name))
-                                      .toList(),
+                                  children: [
+                                    IconLabel(
+                                        icon: Icons.location_on,
+                                        color: Colors.black54,
+                                        label: restoData.city),
+                                    const SizedBox(width: 16),
+                                    IconLabel(
+                                        icon: Icons.star,
+                                        color: Colors.orange,
+                                        label: restoData.rating.toString()),
+                                  ],
                                 ),
-                                const SizedBox(height: 10),
+                                const SizedBox(height: 16),
+                                const Text('Description',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black54)),
+                                const SizedBox(height: 8),
+                                Text(restoData.description,
+                                    style:
+                                        const TextStyle(color: Colors.black45)),
+                                const Divider(height: 20),
+                                const Text('Category',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black54)),
+                                const SizedBox(height: 4),
+                                SizedBox(
+                                    height: 50,
+                                    child: ListView(
+                                      scrollDirection: Axis.horizontal,
+                                      children:
+                                          restoData.categories.map((category) {
+                                        return Row(
+                                          children: [
+                                            Chip(
+                                                padding:
+                                                    const EdgeInsets.all(4),
+                                                label: Text(category.name)),
+                                            const SizedBox(width: 8)
+                                          ],
+                                        );
+                                      }).toList(),
+                                    )),
+                                const Divider(height: 20),
                                 const Text(
-                                  'Menu',
+                                  'Foods',
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                    color: Colors.black54,
                                   ),
                                 ),
                                 const SizedBox(
                                   height: 8,
                                 ),
-                                SingleChildScrollView(
-                                  padding: const EdgeInsets.all(8),
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: state
-                                        .result.restaurant.menus.foods
-                                        .map((food) => Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Column(
-                                                      children: <Widget>[
-                                                        const Icon(Icons.shop),
-                                                        Text(food.name),
-                                                      ],
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ))
-                                        .toList(),
-                                  ),
-                                ),
+                                _horizontalMenuList(
+                                    restoData.menus.foods, 'images/food.jpg'),
                                 const SizedBox(
                                   height: 10,
                                 ),
@@ -147,40 +177,57 @@ class RestaurantDetailPage extends StatelessWidget {
                                   style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.blue,
+                                    color: Colors.black54,
                                   ),
                                 ),
                                 const SizedBox(
                                   height: 8,
                                 ),
-                                SingleChildScrollView(
-                                  padding: const EdgeInsets.all(8),
-                                  scrollDirection: Axis.horizontal,
-                                  child: Row(
-                                    children: state
-                                        .result.restaurant.menus.drinks
-                                        .map((drink) => Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Column(
-                                                      children: <Widget>[
-                                                        const Icon(Icons.shop),
-                                                        Text(drink.name),
-                                                      ],
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ))
-                                        .toList(),
-                                  ),
-                                ),
+                                _horizontalMenuList(
+                                    restoData.menus.drinks, 'images/drink.jpg'),
                               ],
                             ),
                           ),
-                        ]),
-                        Icon(Icons.directions_transit, size: 350),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 8),
+                          child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                    child: ListView(
+                                        shrinkWrap: true,
+                                        children: restoData.customerReviews
+                                            .map((review) => Column(
+                                                  children: [
+                                                    ListTile(
+                                                      title: Text(review.name),
+                                                      subtitle: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(review.date,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .left),
+                                                          const SizedBox(
+                                                              height: 4),
+                                                          Text(review.review,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .left),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    const Divider()
+                                                  ],
+                                                ))
+                                            .toList()))
+                              ]),
+                        )
                       ],
                     ),
                   ),
@@ -195,6 +242,23 @@ class RestaurantDetailPage extends StatelessWidget {
             }),
           ),
         ));
+  }
+
+  Widget _horizontalMenuList(List<Category> items, String imgPath) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: items
+            .map((item) => Row(
+                  children: [
+                    CardImage(imgPath: imgPath, label: item.name),
+                    const SizedBox(width: 8)
+                  ],
+                ))
+            .toList(),
+      ),
+    );
   }
 }
 
@@ -213,6 +277,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
+      color: Colors.white,
       child: _tabBar,
     );
   }
