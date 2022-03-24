@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/search_provider.dart';
 import '../widgets/restaurant_card.dart';
+import '../widgets/blankslate.dart';
 
 class SearchScreen extends StatefulWidget {
   static const routeName = '/search';
@@ -38,9 +39,46 @@ class _SearchScreenState extends State<SearchScreen> {
                         return CardRestaurant(restaurant: restaurant);
                       });
                 } else if (state.state == ResultState.NoData) {
-                  return Center(child: Text(state.message));
+                  return Center(
+                      child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: const [
+                      Icon(Icons.search_off, color: Colors.grey, size: 64),
+                      SizedBox(height: 24),
+                      Text('No restaurant found. Please recheck your keyword',
+                          style: TextStyle(color: Colors.grey))
+                    ],
+                  ));
+                } else if (state.state == ResultState.NoConnection) {
+                  return Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const Blankslate(),
+                        const SizedBox(height: 8),
+                        Text(state.message),
+                        const SizedBox(height: 8),
+                      ],
+                    ),
+                  );
                 } else if (state.state == ResultState.Error) {
-                  return Center(child: Text(state.message));
+                  return Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const Blankslate(),
+                        const SizedBox(height: 8),
+                        Text(state.message),
+                        const SizedBox(height: 8),
+                      ],
+                    ),
+                  );
                 } else {
                   return const Center(child: Text(''));
                 }

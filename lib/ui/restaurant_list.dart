@@ -41,24 +41,46 @@ class RestaurantListPage extends StatelessWidget {
                 return CardRestaurant(restaurant: restaurant);
               });
         } else if (state.state == ResultState.NoData) {
-          return Column(
-            children: [
-              const Blankslate(),
-              const SizedBox(height: 8),
-              Text(state.message),
-              const SizedBox(height: 8),
-            ],
+          return Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Blankslate(),
+                const SizedBox(height: 8),
+                Text(state.message),
+                const SizedBox(height: 8),
+              ],
+            ),
+          );
+        } else if (state.state == ResultState.NoConnection) {
+          return Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Blankslate(),
+                const SizedBox(height: 8),
+                Text(state.message),
+                const SizedBox(height: 8),
+              ],
+            ),
           );
         } else if (state.state == ResultState.Error) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Blankslate(),
-              const SizedBox(height: 8),
-              Text(state.message),
-              const SizedBox(height: 8),
-            ],
+          return Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Blankslate(),
+                const SizedBox(height: 8),
+                Text(state.message),
+                const SizedBox(height: 8),
+              ],
+            ),
           );
         } else {
           return const Center(child: Text(''));

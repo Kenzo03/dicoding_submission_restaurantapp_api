@@ -1,11 +1,12 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:flutter/foundation.dart';
+import 'dart:io';
 
 import '../data/model/restaurant.dart';
 import '../data/api/api_service.dart';
 
-enum ResultState { Loading, NoData, HasData, Error }
+enum ResultState { Loading, NoData, HasData, Error, NoConnection }
 
 class RestaurantDetailProvider extends ChangeNotifier {
   final ApiService apiService;
@@ -38,6 +39,10 @@ class RestaurantDetailProvider extends ChangeNotifier {
         notifyListeners();
         return _restaurantDetail = restaurantDetail;
       }
+    } on SocketException catch (e) {
+      _state = ResultState.NoConnection;
+      notifyListeners();
+      return _message = 'Please check your connection.';
     } catch (e) {
       _state = ResultState.Error;
       notifyListeners();

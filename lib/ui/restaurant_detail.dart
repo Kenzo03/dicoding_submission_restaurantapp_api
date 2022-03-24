@@ -233,37 +233,26 @@ class RestaurantDetailPage extends StatelessWidget {
                     ),
                   ),
                 );
-              } else if (state.state == ResultState.NoData) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Blankslate(),
-                    const SizedBox(height: 8),
-                    Text(state.message),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Back'))
-                  ],
-                );
-              } else if (state.state == ResultState.Error) {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Blankslate(),
-                    const SizedBox(height: 8),
-                    Text(state.message),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Back'))
-                  ],
+              } else if (state.state == ResultState.NoData ||
+                  state.state == ResultState.Error ||
+                  state.state == ResultState.NoConnection) {
+                return Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      const Blankslate(),
+                      const SizedBox(height: 8),
+                      Text(state.message),
+                      const SizedBox(height: 8),
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Back'))
+                    ],
+                  ),
                 );
               } else {
                 return const Center(child: Text(''));
