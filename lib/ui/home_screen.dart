@@ -18,23 +18,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<SalomonBottomBarItem> _bottomNavBarItems = [
     SalomonBottomBarItem(
-      icon: Icon(Icons.home),
-      title: Text("Home"),
+      icon: const Icon(Icons.home),
+      title: const Text("Home"),
       selectedColor: Colors.blue,
     ),
     SalomonBottomBarItem(
-      icon: Icon(Icons.discount),
-      title: Text("Promo"),
+      icon: const Icon(Icons.discount),
+      title: const Text("Promo"),
       selectedColor: Colors.red,
     ),
     SalomonBottomBarItem(
-      icon: Icon(Icons.favorite),
-      title: Text("Favorite"),
+      icon: const Icon(Icons.favorite),
+      title: const Text("Favorite"),
       selectedColor: Colors.purple,
     ),
     SalomonBottomBarItem(
-      icon: Icon(Icons.settings),
-      title: Text("Settings"),
+      icon: const Icon(Icons.settings),
+      title: const Text("Settings"),
       selectedColor: Colors.green,
     ),
   ];
