@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import './ui/search_screen.dart';
 import './ui/restaurant_detail.dart';
 import './ui/restaurant_list.dart';
+import './ui/home_screen.dart';
 
 //Provider
 import './provider/get_provider.dart';
@@ -33,9 +34,10 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'News App',
-        initialRoute: RestaurantListPage.routeName,
+        debugShowCheckedModeBanner: false,
+        initialRoute: HomeScreen.routeName,
         routes: {
-          // HomePage.routeName: (context) => const HomePage(),
+          HomeScreen.routeName: (context) => const HomeScreen(),
           SearchScreen.routeName: (context) => const SearchScreen(),
           RestaurantListPage.routeName: (context) => const RestaurantListPage(),
           RestaurantDetailPage.routeName: (context) => RestaurantDetailPage(

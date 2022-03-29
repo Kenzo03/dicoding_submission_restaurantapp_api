@@ -18,17 +18,6 @@ class RestaurantListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Deresto'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              Navigator.pushNamed(context, SearchScreen.routeName);
-            },
-          ),
-        ],
-      ),
       body: Consumer<RestaurantProvider>(builder: (context, state, _) {
         if (state.state == ResultState.Loading) {
           return const Center(child: CircularProgressIndicator());
