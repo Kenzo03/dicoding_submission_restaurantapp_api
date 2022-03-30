@@ -8,9 +8,6 @@ import '../provider/get_provider.dart';
 import '../widgets/blankslate.dart';
 import '../widgets/restaurant_card.dart';
 
-//UI
-import './search_screen.dart';
-
 class RestaurantListPage extends StatelessWidget {
   static const routeName = '/restaurant_list';
   const RestaurantListPage({Key? key}) : super(key: key);
