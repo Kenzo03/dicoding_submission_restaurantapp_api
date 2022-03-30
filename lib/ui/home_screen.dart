@@ -1,3 +1,6 @@
+import './favorite_screen.dart';
+import './profile_screen.dart';
+import './promo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -33,17 +36,17 @@ class _HomeScreenState extends State<HomeScreen> {
       selectedColor: Colors.purple,
     ),
     SalomonBottomBarItem(
-      icon: const Icon(Icons.settings),
-      title: const Text("Settings"),
+      icon: const Icon(Icons.account_circle),
+      title: const Text("Profile"),
       selectedColor: Colors.green,
     ),
   ];
 
   final List<Widget> _listWidget = [
     const RestaurantListPage(),
-    const RestaurantListPage(),
-    const RestaurantListPage(),
-    const RestaurantListPage(),
+    const PromoScreen(),
+    const FavoriteScreen(),
+    const ProfileScreen(),
   ];
 
   @override

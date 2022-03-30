@@ -6,6 +6,9 @@ import './ui/search_screen.dart';
 import './ui/restaurant_detail.dart';
 import './ui/restaurant_list.dart';
 import './ui/home_screen.dart';
+import './ui/favorite_screen.dart';
+import './ui/profile_screen.dart';
+import './ui/promo_screen.dart';
 
 //Provider
 import './provider/get_provider.dart';
@@ -40,6 +43,9 @@ class MyApp extends StatelessWidget {
           HomeScreen.routeName: (context) => const HomeScreen(),
           SearchScreen.routeName: (context) => const SearchScreen(),
           RestaurantListPage.routeName: (context) => const RestaurantListPage(),
+          PromoScreen.routeName: (context) => const PromoScreen(),
+          FavoriteScreen.routeName: (context) => const FavoriteScreen(),
+          ProfileScreen.routeName: (context) => const ProfileScreen(),
           RestaurantDetailPage.routeName: (context) => RestaurantDetailPage(
               id: ModalRoute.of(context)?.settings.arguments as String)
         },
