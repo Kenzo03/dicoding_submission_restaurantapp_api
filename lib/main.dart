@@ -13,6 +13,10 @@ import './ui/promo_screen.dart';
 //Provider
 import './provider/get_provider.dart';
 import './provider/search_provider.dart';
+import './provider/database_provider.dart';
+
+///Helper
+import './data/db/database_helper.dart';
 
 //Api
 import './data/api/api_service.dart';
@@ -33,7 +37,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<SearchRestaurantProvider>(
           create: (_) => SearchRestaurantProvider(apiService: ApiService()),
-        )
+        ),
+        ChangeNotifierProvider(
+            create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()))
       ],
       child: MaterialApp(
         title: 'News App',
