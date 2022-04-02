@@ -9,6 +9,7 @@ import './utils/notification_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import './common/navigation.dart';
 
 //UI
@@ -24,9 +25,11 @@ import './ui/promo_screen.dart';
 import './provider/get_provider.dart';
 import './provider/search_provider.dart';
 import './provider/database_provider.dart';
+import './provider/preferences_provider.dart';
 
 ///Helper
 import './data/db/database_helper.dart';
+import './data/preferences/preferences_helper.dart';
 
 //Api
 import './data/api/api_service.dart';
@@ -64,6 +67,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SchedulingProvider()),
         ChangeNotifierProvider<SearchRestaurantProvider>(
           create: (_) => SearchRestaurantProvider(apiService: ApiService()),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => PreferencesProvider(
+            preferencesHelper: PreferencesHelper(
+              sharedPreferences: SharedPreferences.getInstance(),
+            ),
+          ),
         ),
         ChangeNotifierProvider(
             create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()))

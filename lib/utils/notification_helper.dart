@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/subjects.dart';
@@ -6,6 +7,7 @@ import '../data/model/restaurant.dart';
 import '../common/navigation.dart';
 
 final selectNotificationSubject = BehaviorSubject<String>();
+final randomRestaurantIndex = Random().nextInt(20);
 
 class NotificationHelper {
   static NotificationHelper? _instance;
@@ -59,8 +61,8 @@ class NotificationHelper {
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
 
-    var titleNotification = '<b>Headline News<b>';
-    var titleNews = restaurants.restaurants[0].name;
+    var titleNotification = '<b>Recommended Restaurant Today<b>';
+    var titleNews = restaurants.restaurants[randomRestaurantIndex].name;
 
     await flutterLocalNotificationsPlugin.show(
         0, titleNotification, titleNews, platformChannelSpecifics,
@@ -71,7 +73,7 @@ class NotificationHelper {
     selectNotificationSubject.stream.listen(
       (String payload) async {
         var data = RestaurantList.fromJson(json.decode(payload));
-        var article = data.restaurants[0];
+        var article = data.restaurants[randomRestaurantIndex];
         Navigation.intentWithData(route, article);
       },
     );
