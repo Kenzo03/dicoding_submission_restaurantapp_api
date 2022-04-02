@@ -6,7 +6,7 @@ import '../provider/get_provider.dart';
 
 //Widgets
 import '../widgets/blankslate.dart';
-import '../widgets/restaurant_card.dart';
+import '../widgets/card_restaurant.dart';
 
 class RestaurantListPage extends StatelessWidget {
   static const routeName = '/restaurant_list';

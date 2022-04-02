@@ -4,6 +4,7 @@ import '../data/model/restaurant.dart';
 import '../provider/database_provider.dart';
 import '../common/constant.dart';
 import 'package:provider/provider.dart';
+import '../common/navigation.dart';
 
 class CardRestaurant extends StatelessWidget {
   final Restaurant restaurant;
@@ -44,9 +45,8 @@ class CardRestaurant extends StatelessWidget {
                       color: Colors.red,
                       onPressed: () => provider.addFavorite(restaurant),
                     ),
-              onTap: () => Navigator.pushNamed(
-                  context, RestaurantDetailPage.routeName,
-                  arguments: restaurant.id),
+              onTap: () => Navigation.intentWithData(
+                  RestaurantDetailPage.routeName, restaurant.id),
             ));
           });
     });

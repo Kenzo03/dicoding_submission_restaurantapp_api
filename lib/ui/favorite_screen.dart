@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/database_provider.dart';
 import '../utils/result_state.dart';
-import '../widgets/restaurant_card.dart';
+import '../widgets/card_restaurant.dart';
 
 class FavoriteScreen extends StatelessWidget {
   static const routeName = 'favorite_screen';

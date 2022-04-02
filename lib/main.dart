@@ -1,5 +1,15 @@
+import 'dart:io';
+
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
+import './provider/scheduling_provider.dart';
+
+import './utils/background_service.dart';
+
+import './utils/notification_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import './common/navigation.dart';
 
 //UI
 import './ui/search_screen.dart';
@@ -21,7 +31,23 @@ import './data/db/database_helper.dart';
 //Api
 import './data/api/api_service.dart';
 
-void main() {
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final NotificationHelper _notificationHelper = NotificationHelper();
+  final BackgroundService _service = BackgroundService();
+
+  _service.initializeIsolate();
+
+  if (Platform.isAndroid) {
+    await AndroidAlarmManager.initialize();
+  }
+
+  await _notificationHelper.initNotification(flutterLocalNotificationsPlugin);
+
   runApp(const MyApp());
 }
 
@@ -35,6 +61,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<RestaurantProvider>(
           create: (_) => RestaurantProvider(apiService: ApiService()),
         ),
+        ChangeNotifierProvider(create: (_) => SchedulingProvider()),
         ChangeNotifierProvider<SearchRestaurantProvider>(
           create: (_) => SearchRestaurantProvider(apiService: ApiService()),
         ),
@@ -42,8 +69,9 @@ class MyApp extends StatelessWidget {
             create: (_) => DatabaseProvider(databaseHelper: DatabaseHelper()))
       ],
       child: MaterialApp(
-        title: 'News App',
+        title: 'Deresto',
         debugShowCheckedModeBanner: false,
+        navigatorKey: navigatorKey,
         initialRoute: HomeScreen.routeName,
         routes: {
           HomeScreen.routeName: (context) => const HomeScreen(),

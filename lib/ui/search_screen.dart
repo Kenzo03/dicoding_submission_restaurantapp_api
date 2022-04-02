@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../provider/search_provider.dart';
-import '../widgets/restaurant_card.dart';
+import '../widgets/card_restaurant.dart';
 import '../widgets/blankslate.dart';
 
 class SearchScreen extends StatefulWidget {
