@@ -18,7 +18,7 @@ import './ui/restaurant_detail.dart';
 import './ui/restaurant_list.dart';
 import './ui/home_screen.dart';
 import './ui/favorite_screen.dart';
-import './ui/profile_screen.dart';
+import 'ui/setting_screen.dart';
 import './ui/promo_screen.dart';
 
 //Provider
@@ -89,7 +89,7 @@ class MyApp extends StatelessWidget {
           RestaurantListPage.routeName: (context) => const RestaurantListPage(),
           PromoScreen.routeName: (context) => const PromoScreen(),
           FavoriteScreen.routeName: (context) => const FavoriteScreen(),
-          ProfileScreen.routeName: (context) => const ProfileScreen(),
+          SettingScreen.routeName: (context) => const SettingScreen(),
           RestaurantDetailPage.routeName: (context) => RestaurantDetailPage(
               id: ModalRoute.of(context)?.settings.arguments as String)
         },

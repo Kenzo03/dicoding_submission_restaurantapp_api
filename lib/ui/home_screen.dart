@@ -1,5 +1,5 @@
 import './favorite_screen.dart';
-import './profile_screen.dart';
+import 'setting_screen.dart';
 import './promo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -36,8 +36,8 @@ class _HomeScreenState extends State<HomeScreen> {
       selectedColor: Colors.purple,
     ),
     SalomonBottomBarItem(
-      icon: const Icon(Icons.account_circle),
-      title: const Text("Profile"),
+      icon: const Icon(Icons.settings),
+      title: const Text("SettingScreen"),
       selectedColor: Colors.green,
     ),
   ];
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const RestaurantListPage(),
     const PromoScreen(),
     const FavoriteScreen(),
-    const ProfileScreen(),
+    const SettingScreen(),
   ];
 
   @override
@@ -68,11 +68,6 @@ class _HomeScreenState extends State<HomeScreen> {
           currentIndex: _bottomNavIndex,
           onTap: (i) => setState(() => _bottomNavIndex = i),
           items: _bottomNavBarItems,
-        )
-        // BottomNavigationBar(
-        //     currentIndex: _bottomNavIndex,
-        //     items: _bottomNavBarItems,
-        //     onTap: _onBottomNavTapped)
-        );
+        ));
   }
 }
