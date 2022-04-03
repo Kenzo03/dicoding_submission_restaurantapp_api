@@ -40,7 +40,7 @@ class RestaurantProvider extends ChangeNotifier {
         notifyListeners();
         return _restaurantList = restaurantList;
       }
-    } on SocketException catch (e) {
+    } on SocketException {
       _state = ResultState.NoConnection;
       notifyListeners();
       return _message = 'Please check your connection.';
