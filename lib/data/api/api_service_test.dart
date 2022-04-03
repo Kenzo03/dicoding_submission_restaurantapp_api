@@ -4,8 +4,8 @@ import '../model/restaurant.dart';
 import '../../common/constant.dart';
 
 class ApiServiceTest {
-  static Future<RestaurantList> getRestaurants(http.Client http) async {
-    final response = await http.get(Uri.parse(Constant.baseUrl + "list"));
+  Future<RestaurantList> getRestaurants(http.Client client) async {
+    final response = await client.get(Uri.parse(Constant.baseUrl + "list"));
     if (response.statusCode == 200) {
       return RestaurantList.fromJson(json.decode(response.body));
     } else {
