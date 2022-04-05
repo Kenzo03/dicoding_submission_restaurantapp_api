@@ -3,6 +3,7 @@
 //     final restaurantList = restaurantListFromJson(jsonString);
 
 import 'dart:convert';
+import 'package:equatable/equatable.dart';
 
 RestaurantList restaurantListFromJson(String str) =>
     RestaurantList.fromJson(json.decode(str));
@@ -21,6 +22,9 @@ class RestaurantList {
   String message;
   int count;
   List<Restaurant> restaurants;
+
+  @override
+  List<Object> get props => [error, message, count, restaurants];
 
   factory RestaurantList.fromJson(Map<String, dynamic> json) => RestaurantList(
         error: json["error"],

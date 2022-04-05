@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
     SalomonBottomBarItem(
       icon: const Icon(Icons.settings),
-      title: const Text("SettingScreen"),
+      title: const Text("Setting"),
       selectedColor: Colors.green,
     ),
   ];
