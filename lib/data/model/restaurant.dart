@@ -10,18 +10,18 @@ RestaurantList restaurantListFromJson(String str) =>
 
 String restaurantListToJson(RestaurantList data) => json.encode(data.toJson());
 
-class RestaurantList {
-  RestaurantList({
+class RestaurantList extends Equatable {
+  const RestaurantList({
     required this.error,
     required this.message,
     required this.count,
     required this.restaurants,
   });
 
-  bool error;
-  String message;
-  int count;
-  List<Restaurant> restaurants;
+  final bool error;
+  final String message;
+  final int count;
+  final List<Restaurant> restaurants;
 
   @override
   List<Object> get props => [error, message, count, restaurants];

@@ -4,6 +4,7 @@ import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import '../lib/data/api/api_service_test.dart';
+import '../lib/common/constant.dart';
 
 import 'get_restaurant_list_test.mocks.dart';
 
@@ -19,24 +20,23 @@ void main() {
 
       // Use Mockito to return a successful response when it calls the
       // provided http.Client.
-      when(client.get(Uri.parse('https://restaurant-api.dicoding.dev/list')))
-          .thenAnswer((_) async => http.Response(
+      when(client.get(Uri.parse(Constant.baseUrl + "list"))).thenAnswer(
+          (_) async => http.Response(
               '{"error":false,"message":"succes","count":20, "restaurants":[]}',
               200));
 
       expect(await getRestaurants(client), isA<RestaurantList>());
     });
 
-    test('throws an exception if the http call completes with an error',
-        () async {
+    test('throws an exception if the http call completes with an error', () {
       final client = MockClient();
 
-      // Use Mockito to return a successful response when it calls the
+      // Use Mockito to return an unsuccessful response when it calls the
       // provided http.Client.
-      when(client.get(Uri.parse('https://restaurant-api.dicoding.dev/list')))
+      when(client.get(Uri.parse(Constant.baseUrl + "list")))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(await getRestaurants(client), throwsException);
+      expect(getRestaurants(client), throwsException);
     });
   });
 }
