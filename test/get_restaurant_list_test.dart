@@ -3,8 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import '../lib/data/api/api_service_test.dart';
-import '../lib/common/constant.dart';
+import 'package:deresto_api/data/api/api_service_test.dart';
+import 'package:deresto_api/common/constant.dart';
 
 import 'get_restaurant_list_test.mocks.dart';
 
@@ -25,7 +25,8 @@ void main() {
               '{"error":false,"message":"succes","count":20, "restaurants":[]}',
               200));
 
-      expect(await getRestaurants(client), isA<RestaurantList>());
+      expect(
+          await ApiServiceTest(client).getRestaurants(), isA<RestaurantList>());
     });
 
     test('throws an exception if the http call completes with an error', () {
@@ -36,7 +37,7 @@ void main() {
       when(client.get(Uri.parse(Constant.baseUrl + "list")))
           .thenAnswer((_) async => http.Response('Not Found', 404));
 
-      expect(getRestaurants(client), throwsException);
+      expect(ApiServiceTest(client).getRestaurants(), throwsException);
     });
   });
 }
